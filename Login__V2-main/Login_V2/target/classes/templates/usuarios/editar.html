@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Usuario</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+</head>
+<body>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-warning">
+                    <h4 class="mb-0"><i class="bi bi-pencil"></i> Editar Usuario</h4>
+                </div>
+                <div class="card-body">
+                    <form th:action="@{/usuarios/actualizar/{id}(id=${usuario.id})}"
+                          th:object="${usuario}"
+                          method="post">
+
+                        <div class="mb-3">
+                            <label class="form-label">
+                                <i class="bi bi-hash"></i> ID
+                            </label>
+                            <input type="text"
+                                   class="form-control"
+                                   th:value="${usuario.id}"
+                                   disabled>
+                            <small class="form-text text-muted">El ID no se puede modificar</small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="username" class="form-label">
+                                <i class="bi bi-person"></i> Username *
+                            </label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="username"
+                                   th:field="*{username}"
+                                   required
+                                   maxlength="50">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label">
+                                <i class="bi bi-envelope"></i> Email *
+                            </label>
+                            <input type="email"
+                                   class="form-control"
+                                   id="email"
+                                   th:field="*{email}"
+                                   required
+                                   maxlength="100">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">
+                                <i class="bi bi-calendar"></i> Fecha de Creación
+                            </label>
+                            <input type="text"
+                                   class="form-control"
+                                   th:value="${#temporals.format(usuario.fechaCreacion, 'dd/MM/yyyy HH:mm:ss')}"
+                                   disabled>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">
+                                <i class="bi bi-calendar-check"></i> Última Actualización
+                            </label>
+                            <input type="text"
+                                   class="form-control"
+                                   th:value="${#temporals.format(usuario.fechaActualizacion, 'dd/MM/yyyy HH:mm:ss')}"
+                                   disabled>
+                        </div>
+
+                        <div class="alert alert-warning">
+                            <i class="bi bi-exclamation-triangle"></i>
+                            <strong>Nota:</strong> La contraseña no se puede cambiar desde este formulario por seguridad.
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-warning">
+                                <i class="bi bi-save"></i> Guardar Cambios
+                            </button>
+                            <a href="/usuarios" class="btn btn-secondary">
+                                <i class="bi bi-x-circle"></i> Cancelar
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
